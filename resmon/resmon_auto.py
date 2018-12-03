@@ -1,9 +1,12 @@
+#!/usr/bin/env python
+
 import sys
 from datetime import datetime
 import os
 import signal
 import subprocess
 import time
+import re
 
 def main():
     if(len(sys.argv) != 2):
@@ -16,8 +19,9 @@ def main():
     filename = current_time + "_" + sys.argv[1]
 
     print("Gather WiFi Metrics")
-    command = 'ifconfig | grep wl | awk \'{printf \"%s\", $(NF-4)}\''
-    interface = subprocess.check_output(command,shell=True).decode('ascii')
+    command = 'ip link | grep wl | awk \'{printf \"%s\", $(2)}\''
+    interface = str(subprocess.check_output(command,shell=True).decode('ascii'))
+    interface = re.sub(r'[\W_]+', '', interface)
     print("WiFi interface used: {}".format(str(interface)))
 
     command = "resmon --delay 1 -f -o "+filename+".csv -n "+str(interface)+" --nic-outfile "+filename+"WiFi.csv"
