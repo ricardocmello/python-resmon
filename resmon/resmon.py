@@ -35,7 +35,7 @@ class SystemMonitor:
             self.outfile = open(outfile_name, 'w')
         self.flush = flush
         self.outfile.write(
-            'Timestamp,  Uptime, NCPU, %CPU, ' + ', '.join(['%CPU' + str(i) for i in range(ncores)]) +
+            'Timestamp,  Uptime, NCPU, CPU_Load, %CPU, ' + ', '.join(['%CPU' + str(i) for i in range(ncores)]) +
             ', %MEM, mem.total.KB, mem.used.KB, mem.avail.KB, mem.free.KB' +
             ', %SWAP, swap.total.KB, swap.used.KB, swap.free.KB' +
             ', io.read, io.write, io.read.KB, io.write.KB, io.read.ms, io.write.ms\n')
@@ -59,6 +59,7 @@ class SystemMonitor:
     def poll_stat(self):
         timestamp = int(time.time())
         uptime = timestamp - self.starttime
+        cpu_load = os.getloadavg()[0]
         total_cpu_percent = psutil.cpu_percent(percpu=False)
         percpu_percent = psutil.cpu_percent(percpu=True)
         mem_stat = psutil.virtual_memory()
@@ -66,7 +67,7 @@ class SystemMonitor:
         disk_stat = psutil.disk_io_counters()
 
         line = str(timestamp) + ', ' + str(uptime) + ', ' + \
-            str(self.ncores) + ', ' + str(total_cpu_percent*self.ncores) + ', '
+            str(self.ncores) + ', ' + str(cpu_load) + ', ' + str(total_cpu_percent*self.ncores) + ', '
         line += ', '.join([str(i) for i in percpu_percent])
         line += ', ' + str(mem_stat.percent) + ', ' + str(mem_stat.total >> 10) + ', ' + str(
             mem_stat.used >> 10) + ', ' + str(mem_stat.available >> 10) + ', ' + str(mem_stat.free >> 10)

@@ -24,18 +24,11 @@ $ sudo apt install python3-dev
 $ wget -O- https://bootstrap.pypa.io/get-pip.py | sudo python3
 ```
 
-Use `pip` to pull the repository and install:
-
-```bash
-# Install to user space. Remove "--user" to install system-wide.
-$ pip install --user git+ssh://git@github.com/xybu/python-resmon.git
-```
-
-Or install from repository manually,
+Install from repository manually,
 
 ```bash
 # Grab source code.
-$ git clone git@github.com:xybu/python-resmon.git
+$ git clone https://github.com/ricardocmello/python-resmon.git
 $ cd python-resmon
 
 # Install dependencies.
