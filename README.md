@@ -36,6 +36,9 @@ $ pip install -r requirements.txt # might need sudo
 
 # Install python-resmon.
 $ ./setup.py install --user
+
+# OR
+$ sudo pip install -e .
 ```
 
 # Uninstallation
