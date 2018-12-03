@@ -57,6 +57,7 @@ setup(
     entry_points={
         'console_scripts': [
             'resmon = resmon.resmon:main',
+            'resmon-auto = resmon.resmon_auto:main'
         ]
     }
 )
