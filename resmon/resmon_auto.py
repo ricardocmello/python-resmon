@@ -24,7 +24,7 @@ def main():
     interface = re.sub(r'[\W_]+', '', interface)
     print("WiFi interface used: {}".format(str(interface)))
 
-    command = "resmon --delay 1 -f -o "+filename+".csv -n "+str(interface)+" --nic-outfile "+filename+"WiFi.csv"
+    command = "resmon --delay 1 -f -o "+filename+" -n "+str(interface)+" --nic-outfile "+filename+"WiFi.csv"
     print(command)
 
     # The os.setsid() is passed in the argument preexec_fn so
